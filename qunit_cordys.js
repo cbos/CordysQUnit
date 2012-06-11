@@ -1,5 +1,4 @@
-
-test("Cordys initialize", function() {
+test("QUnit - Cordys initialization", function() {
   if(CordysRoot)
   {
     ok(true, "CordysRoot is available");
