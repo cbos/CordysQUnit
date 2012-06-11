@@ -1,26 +1,38 @@
 test("QUnit - CWS initialization", function(){
-  application.importType("com.cordys.cws.umf.CWSEnvironmentFactory");
-  application.importType("com.cordys.cws.umf.common.Definition");
-  application.importType("com.cordys.cws.umf.common.Framework");
-  application.importType( "com.cordys.cws.runtime.types.workspace.Workspace" );
-
-  var environmentFactory = CWSEnvironmentFactory.getInstance();
-  environmentFactory._useParentApplication( CordysRoot.application );
-  environmentFactory._setWorkingInBUUI();
-
-  var organizationalContext = environmentFactory._getOrganizationalContext( application.organization );
-  environment = organizationalContext.getSystemEnvironment();
-  ok(true, "CWS Initialized");
+  ok(getCWSSystemEnvironment(), "CWS Initialized");
 });
 
+var __gInitializedCWS = false;
+function __initializeCWS__()
+{
+  if(!__gInitializedCWS)
+  {
+    application.importType("com.cordys.cws.umf.CWSEnvironmentFactory");
+    application.importType("com.cordys.cws.umf.common.Definition");
+    application.importType("com.cordys.cws.umf.common.Framework");
+    application.importType( "com.cordys.cws.runtime.types.workspace.Workspace" );
+
+    var environmentFactory = CWSEnvironmentFactory.getInstance();
+    environmentFactory._useParentApplication( CordysRoot.application );
+    environmentFactory._setWorkingInBUUI();  
+    __gInitializedCWS = true;
+  }
+}
+
+function __getCWSEnvironmentFactory__()
+{
+  __initializeCWS__();
+  return CWSEnvironmentFactory.getInstance();
+}
+
+function getCWSSystemEnvironment()
+{
+  var organizationalContext = __getCWSEnvironmentFactory__()._getOrganizationalContext( application.organization );
+  environment = organizationalContext.getSystemEnvironment();
+}
 
 function getEnvironmentByWorkspaceName(workspaceName, organization)
 {
-  application.importType("com.cordys.cws.umf.CWSEnvironmentFactory");
-  application.importType("com.cordys.cws.umf.common.Definition");
-  application.importType("com.cordys.cws.umf.common.Framework");
-  application.importType( "com.cordys.cws.runtime.types.workspace.Workspace" );
-
   var targetOrganization;
   if(organization)
   {
@@ -30,5 +42,5 @@ function getEnvironmentByWorkspaceName(workspaceName, organization)
   {
     targetOrganization = application.getParameter( "organization" ) || application.organization;
   }
-  return CWSEnvironmentFactory.getInstance().getEnvironmentByWorkspaceName(workspaceName, targetOrganization);
+  return __getCWSEnvironmentFactory__().getEnvironmentByWorkspaceName(workspaceName, targetOrganization);
 }
