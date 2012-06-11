@@ -14,7 +14,7 @@
 });
 
 
-getEnvironmentByWorkspaceName(workspaceName, organization)
+function getEnvironmentByWorkspaceName(workspaceName, organization)
 {
   var targetOrganization;
   if(organization)
