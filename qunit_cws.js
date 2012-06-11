@@ -1,8 +1,9 @@
- test("QUnit - CWS initialization", function(){
-  application.importType("com.cordys.cws.umf.CWSEnvironmentFactory");
-  application.importType("com.cordys.cws.umf.common.Definition");
-  application.importType("com.cordys.cws.umf.common.Framework");
-  application.importType( "com.cordys.cws.runtime.types.workspace.Workspace" );
+application.importType("com.cordys.cws.umf.CWSEnvironmentFactory");
+application.importType("com.cordys.cws.umf.common.Definition");
+application.importType("com.cordys.cws.umf.common.Framework");
+application.importType( "com.cordys.cws.runtime.types.workspace.Workspace" );
+
+test("QUnit - CWS initialization", function(){
 
   var environmentFactory = CWSEnvironmentFactory.getInstance();
   environmentFactory._useParentApplication( CordysRoot.application );
