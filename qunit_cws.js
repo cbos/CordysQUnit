@@ -1,5 +1,4 @@
-
- test("Initialize CWS", function(){
+ test("QUnit - CWS initialization", function(){
   application.importType("com.cordys.cws.umf.CWSEnvironmentFactory");
   application.importType("com.cordys.cws.umf.common.Definition");
   application.importType("com.cordys.cws.umf.common.Framework");
