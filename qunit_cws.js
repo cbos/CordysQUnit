@@ -1,5 +1,5 @@
 test("QUnit - CWS initialization", function(){
-  ok(getCWSSystemEnvironment(), "CWS Initialized");
+  ok(getCWSSystemEnvironment()!=null, "CWS Initialized");
 });
 
 var __gInitializedCWS = false;
