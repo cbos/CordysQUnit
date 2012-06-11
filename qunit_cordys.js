@@ -1,7 +1,6 @@
 test("QUnit - Cordys initialization", function() {
   if(CordysRoot)
   {
-    ok(true, "CordysRoot is available");
     ok(CordysRoot.system != null, "Check for CordysRoot.system");
     ok(CordysRoot.system.framework != null, "Check for CordysRoot.system.framework");
     ok(CordysRoot.application != null, "CordysRoot.application");
@@ -18,9 +17,9 @@ test("QUnit - Cordys initialization", function() {
    
     CordysRoot.CordysRootScreenX=1;
     CordysRoot.CordysRootScreenY=1
-    ok(true, "UIUnit callibaration done") 
+    ok(true, "UIUnit callibaration done, required for running it as UIUnit") 
     
-    ok(true, "CordysRoot is available");
+    ok(true, "QUnit for Cordys initialized, CordysRoot is available");
      
   }
   else
@@ -31,6 +30,6 @@ test("QUnit - Cordys initialization", function() {
 
 QUnit.done = function( result )
 {
-  Console.log("QUnit test done");
+  console.log("QUnit test done");
   CordysRoot.qunit_result = result;
 }

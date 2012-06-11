@@ -4,15 +4,26 @@
   application.importType("com.cordys.cws.umf.common.Framework");
   application.importType( "com.cordys.cws.runtime.types.workspace.Workspace" );
 
-  ok(true, "Imports done");
-
   var environmentFactory = CWSEnvironmentFactory.getInstance();
-  ok(true, "EnvironmentFactory created");
   environmentFactory._useParentApplication( CordysRoot.application );
   environmentFactory._setWorkingInBUUI();
 
-  ok(true, "Ask for system environment");
   var organizationalContext = environmentFactory._getOrganizationalContext( application.organization );
   environment = organizationalContext.getSystemEnvironment();
-  ok(true, "System environment ready");
+  ok(true, "CWS Initialized");
 });
+
+
+getEnvironmentByWorkspaceName(workspaceName, organization)
+{
+  var targetOrganization;
+  if(organization)
+  {
+    targetOrganization = organization;
+  }
+  else
+  {
+    targetOrganization = application.getParameter( "organization" ) || application.organization;
+  }
+  return CWSEnvironmentFactory.getInstance().getEnvironmentByWorkspaceName(workspaceName, targetOrganization);
+}
