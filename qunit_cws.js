@@ -5,13 +5,13 @@ test("QUnit - CWS initialization", function(){
 var __gInitializedCWS = false;
 function __initializeCWS__()
 {
-  application.importType("com.cordys.cws.umf.CWSEnvironmentFactory");
-  application.importType("com.cordys.cws.umf.common.Definition");
-  application.importType("com.cordys.cws.umf.common.Framework");
-  application.importType( "com.cordys.cws.runtime.types.workspace.Workspace" );
-
   if(!__gInitializedCWS)
   {
+    application.importType("com.cordys.cws.umf.CWSEnvironmentFactory");
+    application.importType("com.cordys.cws.umf.common.Definition");
+    application.importType("com.cordys.cws.umf.common.Framework");
+    application.importType( "com.cordys.cws.runtime.types.workspace.Workspace" );
+
     var environmentFactory = CWSEnvironmentFactory.getInstance();
     environmentFactory._useParentApplication( CordysRoot.application );
     environmentFactory._setWorkingInBUUI();  
@@ -28,7 +28,7 @@ function __getCWSEnvironmentFactory__()
 function getCWSSystemEnvironment()
 {
   var organizationalContext = __getCWSEnvironmentFactory__()._getOrganizationalContext( application.organization );
-  environment = organizationalContext.getSystemEnvironment();
+  return organizationalContext.getSystemEnvironment();
 }
 
 function getEnvironmentByWorkspaceName(workspaceName, organization)
