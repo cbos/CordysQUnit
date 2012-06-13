@@ -64,7 +64,7 @@ function createWorkspace(name)
   newWorkspace._mustRemoveWorkspace( false );
 
   workspaceCreator.createWorkspace();
-  getEnvironmentByWorkspaceName(name).workspace();
+  return getEnvironmentByWorkspaceName(name).workspace();
 }
             
 function removeWorkspace(name)
