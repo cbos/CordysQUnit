@@ -44,3 +44,39 @@ function getEnvironmentByWorkspaceName(workspaceName, organization)
   }
   return __getCWSEnvironmentFactory__().getEnvironmentByWorkspaceName(workspaceName, targetOrganization);
 }
+
+function createWorkspace(name)
+{
+  application.importType("com.cordys.cws.runtime.types.workspace.creation.DevelopmentWorkspaceCreator");
+  application.importType("com.cordys.cws.runtime.types.workspace.DevelopmentWorkspace");
+
+  var systemDocumentPlant = getCWSSystemEnvironment().documentPlant()
+  var workspaceCreator = systemDocumentPlant.getDocumentManagerByTypeName( DevelopmentWorkspaceCreator.documentType ).newDocument();
+  var newWorkspace = systemDocumentPlant.getDocumentManagerByTypeName( DevelopmentWorkspace.documentType ).newDocument();
+  workspaceCreator.name(workspaceCreator.documentID());
+  workspaceCreator.workspace(newWorkspace);
+  workspaceCreator.makeTransient();
+
+  newWorkspace.name(name);
+  newWorkspace.description(name);
+
+  newWorkspace.makePersistent();
+  newWorkspace._mustRemoveWorkspace( false );
+
+  workspaceCreator.createWorkspace();
+  getEnvironmentByWorkspaceName(name).workspace();
+}
+            
+function removeWorkspace(name)
+{
+  application.importType("com.cordys.cws.umf.common.util.StudioUMFSet");
+  application.importType("com.cordys.cws.runtime.types.workspace.DevelopmentWorkspace");
+  var workspaceToRemove = getEnvironmentByWorkspaceName(name).workspace();
+  var set = new StudioUMFSet();
+  set.add(workspaceToRemove);
+  
+  var systemEnvironment = getCWSSystemEnvironment();
+  systemEnvironment.handleWorkspaceRemove( workspaceToRemove );
+  var documentPlant = systemEnvironment.documentPlant();
+  DevelopmentWorkspace.removeFromRepository( documentPlant, set);
+}
