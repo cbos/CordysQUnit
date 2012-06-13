@@ -91,4 +91,5 @@ function removeWorkspace(workspaceToRemove)
   //delete it directly (not async)
   var l_call = new StudioUMFXDSJavaCall(DevelopmentWorkspace, documentPlant, "removeFromRepository", "http://schemas.cordys.com/cws/runtime/types/workspace/DevelopmentWorkspace/1.0", true, true, null, null, false);
   l_call.addParameter("object","workspaces",set,true);
+  l_call.execute();
 }
