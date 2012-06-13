@@ -62,11 +62,19 @@ function createWorkspace(name)
 
   newWorkspace.makePersistent();
 
-  workspaceCreator.createWorkspace();
+  __createWorkspaceSynchrone(workspaceCreator);
   newWorkspace.refresh();
 
   var env = __getCWSEnvironmentFactory__().getEnvironmentByWorkspaceID(newWorkspace.documentID());
   return env;
+}
+
+function __createWorkspaceSynchrone( workspaceCreator )
+{
+  //create it directly (not async)
+  application.importType("com.cordys.cws.umf.common.StudioUMFXDSJavaCall");
+  var l_call = new StudioUMFXDSJavaCall(workspaceCreator, null, "createWorkspace", "http://schemas.cordys.com/cws/runtime/types/workspace/creation/DevelopmentWorkspaceCreator/1.0", false, true, null, null, false, null, null);
+  l_call.execute();
 }
             
 function removeWorkspace(name)
@@ -80,5 +88,8 @@ function removeWorkspace(name)
   var systemEnvironment = getCWSSystemEnvironment();
   systemEnvironment.handleWorkspaceRemove( workspaceToRemove );
   var documentPlant = systemEnvironment.documentPlant();
-  DevelopmentWorkspace.removeFromRepository( documentPlant, set);
+  
+  //delete it directly (not async)
+  var l_call = new StudioUMFXDSJavaCall(DevelopmentWorkspace, documentPlant, "removeFromRepository", "http://schemas.cordys.com/cws/runtime/types/workspace/DevelopmentWorkspace/1.0", true, true, null, null, false, null, null);
+  l_call.addParameter("object","workspaces",set,true);
 }
