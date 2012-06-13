@@ -66,7 +66,7 @@ function createWorkspace(name)
   newWorkspace.refresh();
 
   var env = __getCWSEnvironmentFactory__().getEnvironmentByWorkspaceID(newWorkspace.documentID());
-  return env;
+  return env.workspace();
 }
 
 function __createWorkspaceSynchrone( workspaceCreator )
@@ -77,11 +77,10 @@ function __createWorkspaceSynchrone( workspaceCreator )
   l_call.execute();
 }
             
-function removeWorkspace(name)
+function removeWorkspace(workspaceToRemove)
 {
   application.importType("com.cordys.cws.umf.common.util.StudioUMFSet");
   application.importType("com.cordys.cws.runtime.types.workspace.DevelopmentWorkspace");
-  var workspaceToRemove = getEnvironmentByWorkspaceName(name).workspace();
   var set = new StudioUMFSet();
   set.add(workspaceToRemove);
   
