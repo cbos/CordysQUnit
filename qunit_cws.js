@@ -61,11 +61,12 @@ function createWorkspace(name)
   newWorkspace.description(name);
 
   newWorkspace.makePersistent();
-  
+
   workspaceCreator.createWorkspace();
   newWorkspace.refresh();
 
-  return __getCWSEnvironmentFactory__().getEnvironmentByWorkspaceID( newWorkspace.externalID() );
+  var env = __getCWSEnvironmentFactory__().getEnvironmentByWorkspaceID(newWorkspace.documentID());
+  return env;
 }
             
 function removeWorkspace(name)
