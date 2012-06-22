@@ -30,6 +30,5 @@ test("QUnit - Cordys initialization", function() {
 
 QUnit.done = function( result )
 {
-  console.log("QUnit test done");
   CordysRoot.qunit_result = result;
 }
